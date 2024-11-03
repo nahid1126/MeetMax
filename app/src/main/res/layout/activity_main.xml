@@ -12,6 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.activities.MainActivity">
-
+        <include
+            android:id="@+id/includeContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/content_main"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
