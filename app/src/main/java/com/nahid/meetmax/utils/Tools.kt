@@ -10,6 +10,10 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
+import java.util.TimeZone
 
 object Tools {
     fun setSystemBarColor(act: Activity, @ColorRes color: Int) {
@@ -69,5 +73,11 @@ object Tools {
                 )
             }
 
+    }
+    fun simpleDateTimeConvert(dateTime: Long?): String {
+        val utc = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        utc.timeInMillis = dateTime!!
+        val format = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+        return format.format(utc.time)
     }
 }

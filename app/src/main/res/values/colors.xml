@@ -8,4 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="theme">#377DFF</color>
+    <color name="bg">#4E5D78</color>
+    <color name="gray">#335D7833</color>
+    <color name="hint_text_color">#995D7899</color>
+    <color name="error_color">#FF5630</color>
+
+    <color name="green">#008000</color>
+    <color name="School_Bus_Yellow">#E8A317</color>
+    <color name="red">#FF5630</color>
 </resources>

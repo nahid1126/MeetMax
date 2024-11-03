@@ -24,7 +24,7 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
 
     val signUpResponse = signUpRepository.signUpResponse
 
-    fun signIn() {
+    fun signUp() {
         val userMail = userMailFlow.value
         val userName = userNameFlow.value
         val userPass = userPassFlow.value
@@ -71,7 +71,9 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
     private fun validatePassword(userPass: String): String {
         val passwordInput: String = userPass.trim()
 
-        val finalMessage = if (!passwordInput.matches(".*[0-9].*".toRegex())) {
+        val finalMessage = if (!passwordInput.matches(".{8,}".toRegex())) {
+            "Password should contain 8 characters"
+        } else if (!passwordInput.matches(".*[0-9].*".toRegex())) {
             "Password should contain at least 1 digit"
         } else if (!passwordInput.matches(".*[a-z].*".toRegex())) {
             "Password should contain at least 1 lower case letter"
@@ -79,8 +81,6 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
             "Password should contain at least 1 upper case letter"
         } else if (!passwordInput.matches(".*[a-zA-Z].*".toRegex())) {
             "Password should contain a letter"
-        } else if (!passwordInput.matches(".{8,}".toRegex())) {
-            "Password should contain 8 characters"
         } else {
             "OK"
         }
