@@ -16,8 +16,35 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg"
+        android:background="@drawable/gradient_background"
         tools:context=".view.fragments.SignInFragment">
+
+        <ImageView
+            android:id="@+id/topImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin20dp"
+            android:layout_marginTop="@dimen/margin20dp"
+            android:src="@drawable/tool_bar_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            style="@style/BodyMedium"
+            android:layout_width="@dimen/dimen100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin20dp"
+            android:background="@drawable/bg"
+            android:drawableEnd="@drawable/angle_down"
+            android:focusable="false"
+            android:gravity="center"
+            android:longClickable="false"
+            android:singleLine="true"
+            android:text="English (UK)"
+            android:textColor="@color/hint_text_color"
+            app:layout_constraintBottom_toBottomOf="@id/topImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/topImage" />
 
         <TextView
             android:id="@+id/textTitle"
@@ -30,7 +57,7 @@
             android:textSize="@dimen/textSizeXL"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/topImage" />
 
         <TextView
             android:id="@+id/textDescription"
@@ -58,8 +85,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0.9">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/googleButton"
@@ -191,7 +217,7 @@
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/checkbox"
-                    style="@style/BodyMedium"
+                    style="@style/DisplayBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/app_margin"
@@ -202,16 +228,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
 
                 <TextView
-                    style="@style/BodyMedium"
+                    android:id="@+id/forgotPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Forgot Password?"
+                    style="@style/DisplayBold"
                     app:layout_constraintBottom_toBottomOf="@id/checkbox"
                     app:layout_constraintEnd_toEndOf="@id/passwordLayout"
                     app:layout_constraintTop_toTopOf="@id/checkbox" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonSignUp"
+                    android:id="@+id/buttonSignIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin20dp"
@@ -230,7 +257,7 @@
                     android:layout_marginHorizontal="@dimen/margin20dp"
                     android:layout_marginVertical="@dimen/margin16dp"
                     android:gravity="center"
-                    android:text="@string/donnot_have_account"
+                    android:text="@string/have_not_account"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buttonSignUp" />
             </androidx.constraintlayout.widget.ConstraintLayout>

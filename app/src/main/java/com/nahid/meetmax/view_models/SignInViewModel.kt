@@ -15,6 +15,7 @@ class SignInViewModel @Inject constructor(@SignInQualifier private val signInRep
     var message = MutableSharedFlow<String>()
     var userMailFlow = MutableStateFlow<String>("")
     var userPassFlow = MutableStateFlow<String>("")
+    var forgotMailFlow = MutableStateFlow<String>("")
 
     val signInResponse = signInRepository.signInResponse
 
