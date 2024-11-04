@@ -2,6 +2,7 @@ package com.nahid.meetmax.view.fragments
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,8 +54,6 @@ class SignUpFragment : Fragment() {
         binding.textDob.setOnClickListener {
             showDatePickerDialog()
         }
-
-
         binding.buttonSignUp.setOnClickListener {
             signUpViewModel.signUp()
         }

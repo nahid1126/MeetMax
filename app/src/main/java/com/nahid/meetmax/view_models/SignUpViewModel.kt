@@ -1,17 +1,24 @@
 package com.nahid.meetmax.view_models
 
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.nahid.meetmax.R
 import com.nahid.meetmax.di.qualifier.SignUpQualifier
 import com.nahid.meetmax.model.data.User
 import com.nahid.meetmax.model.repository.SignUpRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val TAG = "SignUpViewModel"
 @HiltViewModel
 class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRepository: SignUpRepository) :
     ViewModel() {
@@ -20,7 +27,7 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
     var userNameFlow = MutableStateFlow<String>("")
     var userPassFlow = MutableStateFlow<String>("")
     var userDateOfBirthFlow = MutableStateFlow<String>("")
-    var userGenderFlow = MutableStateFlow<String>("")
+    val selectedOption = MutableStateFlow<Int>(0)
 
     val signUpResponse = signUpRepository.signUpResponse
 
@@ -29,8 +36,14 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
         val userName = userNameFlow.value
         val userPass = userPassFlow.value
         val userDateOfBirth = userDateOfBirthFlow.value
-        val userGender = userGenderFlow.value
+         val genderSelect = when (selectedOption.value) {
+             R.id.buttonMale -> "Male"
 
+             R.id.buttonFemale -> "Female"
+             else -> {
+                 ""
+             }
+         }.toString()
         viewModelScope.launch {
             if (userMail.isEmpty()) {
                 message.emit("Please Enter Mail")
@@ -48,7 +61,7 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
                 message.emit(validatePassword(userPass))
             } else if (userDateOfBirth.isEmpty()) {
                 message.emit("Please Enter Date Of Birth")
-            } else if (userGender.isEmpty()) {
+            } else if (genderSelect.isEmpty()) {
                 message.emit("Please Select Gender")
             } else {
                 signUpRepository.requestForSignUp(
@@ -57,10 +70,20 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
                         userName,
                         userPass,
                         userDateOfBirth,
-                        userGender
+                        genderSelect
                     )
                 )
             }
+        }
+    }
+
+
+
+    fun onGenderSelected(option: String) {
+        selectedOption.value = when (option) {
+            "Male" -> R.id.buttonMale
+            "Female" -> R.id.buttonFemale
+            else -> 0
         }
     }
 

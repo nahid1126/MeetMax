@@ -77,6 +77,7 @@
             android:layout_marginHorizontal="@dimen/margin20dp"
             android:layout_marginTop="@dimen/margin24dp"
             app:cardCornerRadius="@dimen/app_margin"
+            app:cardBackgroundColor="@color/white"
             android:shadowColor="#4E5D78"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -168,7 +169,6 @@
                     android:textColorHint="@color/hint_text_color"
                     app:boxBackgroundColor="@color/white"
                     app:boxStrokeColor="@color/theme"
-                    app:boxStrokeErrorColor="@color/error_color"
                     app:hintTextColor="@color/theme"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -181,6 +181,7 @@
                         android:drawablePadding="@dimen/app_margin"
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
+                        android:padding="@dimen/padding12dp"
                         android:text="@={viewModel.userMailFlow}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -195,7 +196,6 @@
                     android:textColorHint="@color/hint_text_color"
                     app:boxBackgroundColor="@color/white"
                     app:boxStrokeColor="@color/theme"
-                    app:boxStrokeErrorColor="@color/error_color"
                     app:hintTextColor="@color/theme"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -207,6 +207,7 @@
                         android:drawableStart="@drawable/vector"
                         android:drawablePadding="@dimen/app_margin"
                         android:singleLine="true"
+                        android:padding="@dimen/padding12dp"
                         android:text="@={viewModel.userNameFlow}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -221,7 +222,6 @@
                     android:textColorHint="@color/hint_text_color"
                     app:boxBackgroundColor="@color/white"
                     app:boxStrokeColor="@color/theme"
-                    app:boxStrokeErrorColor="@color/error_color"
                     app:endIconTint="@color/hint_text_color"
                     app:hintTextColor="@color/theme"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -236,6 +236,7 @@
                         android:drawablePadding="@dimen/app_margin"
                         android:inputType="textPassword"
                         android:minLines="8"
+                        android:padding="@dimen/padding12dp"
                         android:singleLine="true"
                         android:text="@={viewModel.userPassFlow}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -251,7 +252,6 @@
                     android:textColorHint="@color/hint_text_color"
                     app:boxBackgroundColor="@color/white"
                     app:boxStrokeColor="@color/theme"
-                    app:boxStrokeErrorColor="@color/error_color"
                     app:hintTextColor="@color/theme"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -265,12 +265,12 @@
                         android:drawablePadding="@dimen/app_margin"
                         android:focusable="false"
                         android:inputType="date"
+                        android:padding="@dimen/padding12dp"
                         android:singleLine="true"
                         android:text="@={viewModel.userDateOfBirthFlow}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
-
                     android:id="@+id/radioLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -283,33 +283,41 @@
                     app:layout_constraintTop_toBottomOf="@id/dobLayout">
 
                     <ImageView
+                        android:id="@+id/imageGender"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:src="@{viewModel.selectedOption !=0 &amp;&amp; viewModel.selectedOption ==  2131296368 ? @drawable/female : @drawable/male}"
                         android:layout_marginStart="@dimen/margin16dp"
-                        android:src="@drawable/male" />
+                        tools:ignore="ContentDescription" />
 
                     <RadioGroup
                         android:id="@+id/radioGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin16dp"
+                        android:checkedButton="@={viewModel.selectedOption}"
                         android:orientation="horizontal">
 
                         <com.google.android.material.radiobutton.MaterialRadioButton
                             android:layout_width="wrap_content"
+                            android:id="@+id/buttonMale"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/bg"
                             android:paddingHorizontal="@dimen/padding2dp"
                             android:text="Male"
+                            android:checked="true"
+                            android:onClick="@{() -> viewModel.onGenderSelected(`Male`)}"
                             android:textColor="@color/hint_text_color" />
 
                         <com.google.android.material.radiobutton.MaterialRadioButton
                             android:layout_width="wrap_content"
+                            android:id="@+id/buttonFemale"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/bg"
                             android:paddingHorizontal="@dimen/padding2dp"
                             android:text="Female"
+                            android:onClick="@{() -> viewModel.onGenderSelected(`Female`)}"
                             android:textColor="@color/hint_text_color" />
                     </RadioGroup>
                 </LinearLayout>
