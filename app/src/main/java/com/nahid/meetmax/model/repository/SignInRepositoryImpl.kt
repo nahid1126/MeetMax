@@ -21,11 +21,20 @@ class SignInRepositoryImpl @Inject constructor(private val apiInterface: APIInte
         _signInResponse.emit(NetworkResponse.Loading())
         try {
             val response = apiInterface.requestSignIn(userMail, userPass)
+            _signInResponse.emit(
+                NetworkResponse.Success(
+                    SignIn(
+                        1,
+                        "example@gmail.com",
+                        "john doe"
+                    )
+                )
+            )
 
-            when (response.code()) {
+            /*when (response.code()) {
                 in 200..299 -> {
                     val data = response.body()
-                    _signInResponse.emit(NetworkResponse.Success(data = data!!))
+                     _signInResponse.emit(NetworkResponse.Success(data = data!!)) // this is for success response when api is ready
                 }
 
                 401 -> {
@@ -65,7 +74,7 @@ class SignInRepositoryImpl @Inject constructor(private val apiInterface: APIInte
                         )
                     )
                 }
-            }
+            }*/
 
         } catch (e: UnresolvedAddressException) {
             _signInResponse.emit(NetworkResponse.Error("No Internet Connection"))

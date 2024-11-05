@@ -20,12 +20,8 @@
         <item name="colorOnPrimary">@color/white</item>
     </style>
 
-    <!--<style name="ToolbarStyle">
-        <item name="android:theme">?attr/actionBarTheme</item>
-        <item name="android:minHeight">?attr/actionBarSize</item>
-        <item name="android:background">@color/theme</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:elevation">0dp</item>
-    </style>-->
+    <style name="BottomNavigationViewTextStyle" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+    </style>
 
 </resources>

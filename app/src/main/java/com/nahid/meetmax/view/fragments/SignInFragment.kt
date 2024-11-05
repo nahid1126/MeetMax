@@ -1,8 +1,9 @@
 package com.nahid.meetmax.view.fragments
 
+import android.app.ProgressDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,16 +16,16 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.nahid.meetmax.R
 import com.nahid.meetmax.databinding.FragmentSignInBinding
 import com.nahid.meetmax.model.network.NetworkResponse
-import com.nahid.meetmax.utils.Constants.RC_SIGN_IN
+import com.nahid.meetmax.utils.AppPreferences
 import com.nahid.meetmax.utils.CustomToast
 import com.nahid.meetmax.utils.Status
 import com.nahid.meetmax.view_models.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 private const val TAG = "SignInFragment"
 @AndroidEntryPoint
@@ -32,11 +33,11 @@ class SignInFragment : Fragment() {
     private lateinit var binding: FragmentSignInBinding
     private lateinit var signInViewModel: SignInViewModel
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var progressDialog: ProgressDialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    @Inject
+    lateinit var appPreferences: AppPreferences
 
-    }
     private val singIn = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
     }
     override fun onCreateView(
@@ -46,7 +47,13 @@ class SignInFragment : Fragment() {
         binding = FragmentSignInBinding.inflate(layoutInflater)
 
         signInViewModel = ViewModelProvider(this)[SignInViewModel::class.java]
+        binding.viewModel = signInViewModel
+        binding.lifecycleOwner = this
 
+        progressDialog = ProgressDialog(requireContext()).apply {
+            setMessage("Loading...")
+            setCancelable(false)
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -69,13 +76,22 @@ class SignInFragment : Fragment() {
                         }
 
                         is NetworkResponse.Error -> {
+                            CustomToast.showToast(requireContext(), "${it.message}", Status.FAILED)
+                            progressDialog.dismiss()
                         }
 
                         is NetworkResponse.Loading -> {
+                            progressDialog.show()
 
                         }
 
                         is NetworkResponse.Success -> {
+                            it.data?.let {
+                                signInViewModel.setUserData(appPreferences, it)
+                            }
+                            CustomToast.showToast(requireContext(), "Success", Status.SUCCESS)
+                            progressDialog.dismiss()
+                            findNavController().navigate(R.id.action_signInFragment_to_dashboardFragment)
 
                         }
                     }

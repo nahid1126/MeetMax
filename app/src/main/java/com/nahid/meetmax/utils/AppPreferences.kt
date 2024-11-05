@@ -14,11 +14,26 @@ class AppPreferences @Inject constructor(@ApplicationContext context: Context) {
     private val editor: SharedPreferences.Editor = preferences.edit()
 
     fun putLoginResponse(json: String) {
-        editor.putString(Constants.SIGN_IN_RESPONSE, json)
+        editor.putString(Constants.LOGIN_RESPONSE, json)
         editor.apply()
     }
 
     fun getLoginResponse(): String? {
-        return preferences.getString(Constants.SIGN_IN_RESPONSE, null)
+        return preferences.getString(Constants.LOGIN_RESPONSE, null)
+    }
+
+    fun putUserEmail(userEmail: String) {
+        editor.putString(Constants.USER_EMAIL, userEmail)
+        editor.apply()
+    }
+    fun getGetUserMale(): String? {
+        return preferences.getString(Constants.USER_EMAIL, null)
+    }
+    fun putUserPass(userPass: String) {
+        editor.putString(Constants.USER_PASSWORD, userPass)
+        editor.apply()
+    }
+    fun getGetUserPass(): String? {
+        return preferences.getString(Constants.USER_PASSWORD, null)
     }
 }

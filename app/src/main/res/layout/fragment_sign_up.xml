@@ -181,6 +181,7 @@
                         android:drawablePadding="@dimen/app_margin"
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
+                        android:textColor="@color/text_color"
                         android:padding="@dimen/padding12dp"
                         android:text="@={viewModel.userMailFlow}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -207,6 +208,7 @@
                         android:drawableStart="@drawable/vector"
                         android:drawablePadding="@dimen/app_margin"
                         android:singleLine="true"
+                        android:textColor="@color/text_color"
                         android:padding="@dimen/padding12dp"
                         android:text="@={viewModel.userNameFlow}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -222,7 +224,7 @@
                     android:textColorHint="@color/hint_text_color"
                     app:boxBackgroundColor="@color/white"
                     app:boxStrokeColor="@color/theme"
-                    app:endIconTint="@color/hint_text_color"
+                    app:endIconTint="@color/bg"
                     app:hintTextColor="@color/theme"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -237,6 +239,7 @@
                         android:inputType="textPassword"
                         android:minLines="8"
                         android:padding="@dimen/padding12dp"
+                        android:textColor="@color/text_color"
                         android:singleLine="true"
                         android:text="@={viewModel.userPassFlow}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -266,6 +269,7 @@
                         android:focusable="false"
                         android:inputType="date"
                         android:padding="@dimen/padding12dp"
+                        android:textColor="@color/text_color"
                         android:singleLine="true"
                         android:text="@={viewModel.userDateOfBirthFlow}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -306,9 +310,8 @@
                             android:buttonTint="@color/bg"
                             android:paddingHorizontal="@dimen/padding2dp"
                             android:text="Male"
-                            android:checked="true"
                             android:onClick="@{() -> viewModel.onGenderSelected(`Male`)}"
-                            android:textColor="@color/hint_text_color" />
+                            android:textColor="@color/text_color" />
 
                         <com.google.android.material.radiobutton.MaterialRadioButton
                             android:layout_width="wrap_content"
@@ -318,7 +321,7 @@
                             android:paddingHorizontal="@dimen/padding2dp"
                             android:text="Female"
                             android:onClick="@{() -> viewModel.onGenderSelected(`Female`)}"
-                            android:textColor="@color/hint_text_color" />
+                            android:textColor="@color/text_color" />
                     </RadioGroup>
                 </LinearLayout>
 

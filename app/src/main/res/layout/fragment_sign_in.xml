@@ -182,6 +182,7 @@
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
                         android:padding="@dimen/padding12dp"
+                        android:textColor="@color/text_color"
                         android:text="@={viewModel.userMailFlow}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -211,6 +212,7 @@
                         android:drawablePadding="@dimen/app_margin"
                         android:inputType="textPassword"
                         android:minLines="8"
+                        android:textColor="@color/text_color"
                         android:padding="@dimen/padding12dp"
                         android:singleLine="true"
                         android:text="@={viewModel.userPassFlow}" />
@@ -224,7 +226,7 @@
                     android:layout_marginTop="@dimen/app_margin"
                     android:buttonTint="@color/bg"
                     android:text="Remember me"
-                    android:textColor="@color/bg"
+                    android:textColor="@color/text_color"
                     app:layout_constraintStart_toStartOf="@id/passwordLayout"
                     app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
 
@@ -234,6 +236,7 @@
                     android:layout_height="wrap_content"
                     android:text="Forgot Password?"
                     style="@style/DisplayBold"
+                    android:textColor="@color/text_color"
                     app:layout_constraintBottom_toBottomOf="@id/checkbox"
                     app:layout_constraintEnd_toEndOf="@id/passwordLayout"
                     app:layout_constraintTop_toTopOf="@id/checkbox" />
