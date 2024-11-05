@@ -1,11 +1,11 @@
 package com.nahid.meetmax.view.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +26,7 @@ import com.nahid.meetmax.view_models.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+private const val TAG = "SignInFragment"
 @AndroidEntryPoint
 class SignInFragment : Fragment() {
     private lateinit var binding: FragmentSignInBinding
@@ -36,7 +37,8 @@ class SignInFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
     }
-
+    private val singIn = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,10 +64,20 @@ class SignInFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 signInViewModel.signInResponse.collect {
                     when (it) {
-                        is NetworkResponse.Empty -> TODO()
-                        is NetworkResponse.Error -> TODO()
-                        is NetworkResponse.Loading -> TODO()
-                        is NetworkResponse.Success -> TODO()
+                        is NetworkResponse.Empty -> {
+
+                        }
+
+                        is NetworkResponse.Error -> {
+                        }
+
+                        is NetworkResponse.Loading -> {
+
+                        }
+
+                        is NetworkResponse.Success -> {
+
+                        }
                     }
                 }
             }
@@ -89,38 +101,10 @@ class SignInFragment : Fragment() {
 
 
         binding.googleButton.setOnClickListener {
-            signInWithGoogle()
+           singIn.launch(googleSignInClient.signInIntent)
         }
 
         return binding.root
-    }
-
-    private fun signInWithGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                // Sign-in successful, get the Google account
-                val account = task.getResult(ApiException::class.java)
-                if (account != null) {
-                    val email = account.email
-                    val displayName = account.displayName
-
-                    // Use email or displayName as needed
-                    Log.d("GoogleSignIn", "Email: $email, Name: $displayName")
-                }
-            } catch (e: ApiException) {
-                // Handle failure
-                Log.w("GoogleSignIn", "Google sign-in failed", e)
-            }
-        }
     }
 
 }

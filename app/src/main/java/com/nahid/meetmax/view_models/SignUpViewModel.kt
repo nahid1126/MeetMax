@@ -85,6 +85,8 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
             "Female" -> R.id.buttonFemale
             else -> 0
         }
+
+        Log.d(TAG, "onGenderSelected: ${selectedOption.value}")
     }
 
     private fun isValidEmail(email: String): Boolean {

@@ -287,7 +287,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:src="@{viewModel.selectedOption !=0 &amp;&amp; viewModel.selectedOption ==  2131296368 ? @drawable/female : @drawable/male}"
+                        android:src="@{viewModel.selectedOption !=0 &amp;&amp; viewModel.selectedOption ==  @id/buttonFemale ? @drawable/female : @drawable/male}"
                         android:layout_marginStart="@dimen/margin16dp"
                         tools:ignore="ContentDescription" />
 
@@ -330,6 +330,7 @@
                     android:layout_marginTop="@dimen/margin20dp"
                     android:backgroundTint="@color/theme"
                     android:text="Sign Up"
+                    android:textColor="@color/white"
                     android:textAllCaps="false"
                     app:cornerRadius="@dimen/app_margin"
                     app:layout_constraintTop_toBottomOf="@id/radioLayout" />
