@@ -1,21 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:overScrollMode="ifContentScrolls"
         tools:context=".view.fragments.CreatePostFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <!-- TODO: Update blank fragment layout -->
+        <ImageView
+            android:id="@+id/imageTitle"
+            android:layout_width="@dimen/dimen32dp"
+            android:layout_height="@dimen/dimen32dp"
+            android:layout_marginStart="@dimen/margin20dp"
+            android:layout_marginTop="@dimen/margin20dp"
+            android:src="@drawable/explore"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/textSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin20dp"
+            android:background="@drawable/shape"
+            android:drawableStart="@drawable/search"
+            android:drawablePadding="@dimen/app_margin"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/textSizeL"
+            android:hint="Search for something here..."
+            android:padding="@dimen/app_margin"
+            app:layout_constraintBottom_toBottomOf="@+id/imageTitle"
+            app:layout_constraintEnd_toStartOf="@+id/imageMessage"
+            app:layout_constraintStart_toEndOf="@+id/imageTitle"
+            app:layout_constraintTop_toTopOf="@+id/imageTitle" />
+
+        <ImageView
+            android:id="@+id/imageMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin20dp"
+            android:src="@drawable/message"
+            app:layout_constraintBottom_toBottomOf="@+id/imageTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textSearch"
+            app:layout_constraintTop_toTopOf="@+id/imageTitle" />
+
         <TextView
+            android:id="@+id/textCreatePost"
+            style="@style/BodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin24dp"
+            android:drawableStart="@drawable/left_indicator"
+            android:drawablePadding="@dimen/app_margin"
+            android:padding="@dimen/app_margin"
+            android:text="Create a Post"
+            android:textColor="@color/bg"
+            app:layout_constraintStart_toStartOf="@+id/imageTitle"
+            app:layout_constraintTop_toBottomOf="@+id/imageTitle" />
+
+        <TextView
+            style="@style/BodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/app_margin"
+            android:text="Visible For"
+            app:layout_constraintBottom_toBottomOf="@id/textCreatePost"
+            app:layout_constraintEnd_toStartOf="@+id/visibleFor"
+            app:layout_constraintTop_toTopOf="@id/textCreatePost" />
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/visibleFor"
+            style="@style/BodyMedium"
+            android:layout_width="@dimen/dimen100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin20dp"
+            android:background="@drawable/bg"
+            android:drawableEnd="@drawable/angle_down"
+            android:focusable="false"
+            android:gravity="center"
+            android:longClickable="false"
+            android:padding="@dimen/padding6dp"
+            android:singleLine="true"
+            android:text="Friends"
+            android:textColor="@color/theme"
+            app:layout_constraintBottom_toBottomOf="@id/textCreatePost"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textCreatePost" />
+
+        <View
+            android:id="@+id/spaceLine"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen2dp"
+            android:layout_marginTop="@dimen/margin10dp"
+            android:background="@color/hint_text_color"
+            app:layout_constraintEnd_toEndOf="@+id/visibleFor"
+            app:layout_constraintStart_toStartOf="@+id/textCreatePost"
+            app:layout_constraintTop_toBottomOf="@+id/textCreatePost" />
+
+        <ImageView
+            android:id="@+id/imagePost"
+            android:layout_width="@dimen/dimen32dp"
+            android:layout_height="@dimen/dimen32dp"
+            android:layout_marginTop="@dimen/margin20dp"
+            android:src="@drawable/explore"
+            app:layout_constraintStart_toStartOf="@id/textCreatePost"
+            app:layout_constraintTop_toBottomOf="@+id/spaceLine" />
+
+        <LinearLayout
+            android:id="@+id/postAndImageLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin20dp"
+            android:background="@drawable/bg"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@+id/spaceLine"
+            app:layout_constraintStart_toEndOf="@+id/imagePost"
+            app:layout_constraintTop_toTopOf="@+id/imagePost">
+
+            <EditText
+                style="@style/BodyRegular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/app_margin"
+                android:background="@drawable/bg"
+                android:hint="What's on your mind?"
+                android:maxLines="10"
+                android:scrollbars="vertical"
+                android:overScrollMode="always"
+                android:padding="@dimen/padding6dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="@dimen/app_margin"
+                android:scaleType="fitXY" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/liveVideo"
+            style="@style/DisplayBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin20dp"
+            android:drawableLeft="@drawable/video_camera"
+            android:drawablePadding="@dimen/padding6dp"
+            android:padding="@dimen/padding6dp"
+            android:text="Live Video"
+            app:layout_constraintStart_toStartOf="@+id/imagePost"
+            app:layout_constraintTop_toBottomOf="@+id/postAndImageLayout" />
+
+        <TextView
+            android:id="@+id/photoVideo"
+            style="@style/DisplayBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin4dp"
+            android:drawableLeft="@drawable/picture"
+            android:drawablePadding="@dimen/padding6dp"
+            android:padding="@dimen/padding6dp"
+            android:text="Photo/Video"
+            app:layout_constraintStart_toStartOf="@+id/imagePost"
+            app:layout_constraintTop_toBottomOf="@+id/liveVideo" />
+
+        <TextView
+            android:id="@+id/feeling"
+            style="@style/DisplayBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin4dp"
+            android:drawableLeft="@drawable/feeling"
+            android:drawablePadding="@dimen/padding6dp"
+            android:padding="@dimen/padding6dp"
+            android:text="Feeling"
+            app:layout_constraintStart_toStartOf="@+id/imagePost"
+            app:layout_constraintTop_toBottomOf="@+id/photoVideo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSend"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin20dp"
+            android:layout_marginTop="@dimen/margin20dp"
+            android:backgroundTint="@color/theme"
+            android:text="Post"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:cornerRadius="@dimen/app_margin"
+            app:layout_constraintTop_toBottomOf="@id/feeling" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

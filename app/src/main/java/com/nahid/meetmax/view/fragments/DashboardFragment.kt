@@ -24,12 +24,9 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDashboardBinding.inflate(layoutInflater)
-
-        binding.setOnLogout {
-            appPreferences.putLoginResponse("")
-            findNavController().navigate(R.id.action_dashboardFragment_to_signInFragment)
+        binding.post.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_createPostFragment)
         }
-
         return binding.root
     }
 

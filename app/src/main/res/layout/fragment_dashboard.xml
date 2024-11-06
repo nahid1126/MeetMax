@@ -5,11 +5,7 @@
 
     <data>
 
-        <import type="android.view.View.OnClickListener" />
 
-        <variable
-            name="onLogout"
-            type="OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,14 +13,51 @@
         android:layout_height="match_parent"
         tools:context=".view.fragments.DashboardFragment">
 
-        <com.google.android.material.button.MaterialButton
+        <ImageView
+            android:id="@+id/imageTitle"
+            android:layout_width="@dimen/dimen32dp"
+            android:layout_height="@dimen/dimen32dp"
+            android:layout_marginStart="@dimen/margin20dp"
+            android:layout_marginTop="@dimen/margin20dp"
+            android:src="@drawable/explore"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin20dp"
+            android:background="@drawable/shape"
+            android:drawableStart="@drawable/search"
+            android:drawablePadding="@dimen/app_margin"
+            android:gravity="center_vertical"
+            android:hint="Search for something here..."
+            android:padding="@dimen/app_margin"
+            app:layout_constraintBottom_toBottomOf="@+id/imageTitle"
+            app:layout_constraintEnd_toStartOf="@+id/imageMessage"
+            app:layout_constraintStart_toEndOf="@+id/imageTitle"
+            app:layout_constraintTop_toTopOf="@+id/imageTitle" />
+
+        <ImageView
+            android:id="@+id/imageMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{onLogout}"
-            android:text="logout"
+            android:layout_marginEnd="@dimen/margin20dp"
+            android:src="@drawable/message"
+            app:layout_constraintBottom_toBottomOf="@+id/imageTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textSearch"
+            app:layout_constraintTop_toTopOf="@+id/imageTitle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="post"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
