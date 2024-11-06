@@ -2,8 +2,8 @@ package com.nahid.meetmax.view.fragments
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
@@ -64,9 +64,19 @@ class SignInFragment : Fragment() {
         }
 
         binding.buttonSignIn.setOnClickListener {
-            signInViewModel.signIn()
+            //signInViewModel.signIn() when api is ready for login then uncomment this and remove below line and callbackFunction from viewModel
+            signInViewModel.signIn { response, message ->
+                if (response) {
+                    CustomToast.showToast(requireContext(), message, Status.SUCCESS)
+                    signInViewModel.setUserData(appPreferences)
+                    findNavController().navigate(R.id.action_signInFragment_to_dashboardFragment)
+                } else {
+                    CustomToast.showToast(requireContext(), message, Status.FAILED)
+                }
+            }
         }
 
+        //those lines are for when api is ready for login response
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 signInViewModel.signInResponse.collect {
@@ -86,6 +96,9 @@ class SignInFragment : Fragment() {
                         }
 
                         is NetworkResponse.Success -> {
+                            it.data?.let {
+                                Log.d(TAG, "loginResponse: $it")
+                            }
                             it.data?.let {
                                 signInViewModel.setUserData(appPreferences, it)
                             }

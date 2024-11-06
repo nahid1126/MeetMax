@@ -179,6 +179,7 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/mail"
                         android:drawablePadding="@dimen/app_margin"
+                        android:id="@+id/textEmail"
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
                         android:textColor="@color/text_color"
@@ -208,6 +209,7 @@
                         android:drawableStart="@drawable/vector"
                         android:drawablePadding="@dimen/app_margin"
                         android:singleLine="true"
+                        android:id="@+id/textName"
                         android:textColor="@color/text_color"
                         android:padding="@dimen/padding12dp"
                         android:text="@={viewModel.userNameFlow}" />
@@ -238,6 +240,7 @@
                         android:drawablePadding="@dimen/app_margin"
                         android:inputType="textPassword"
                         android:minLines="8"
+                        android:id="@+id/textPass"
                         android:padding="@dimen/padding12dp"
                         android:textColor="@color/text_color"
                         android:singleLine="true"

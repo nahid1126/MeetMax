@@ -1,6 +1,7 @@
 package com.nahid.meetmax.model.repository
 
 import com.nahid.meetmax.model.data.User
+import com.nahid.meetmax.model.local.LocalDatabase
 import com.nahid.meetmax.model.network.APIInterface
 import com.nahid.meetmax.model.network.NetworkResponse
 import com.nahid.meetmax.utils.ResponseUtils
@@ -10,8 +11,12 @@ import kotlinx.coroutines.flow.asSharedFlow
 import java.nio.channels.UnresolvedAddressException
 import javax.inject.Inject
 
-class SignUpRepositoryImpl @Inject constructor(private val apiInterface: APIInterface) :
+class SignUpRepositoryImpl @Inject constructor(
+    private val apiInterface: APIInterface,
+    private val localDatabase: LocalDatabase
+) :
     SignUpRepository {
+    private val userDao = localDatabase.userDao()
     private val _signUpResponse = MutableSharedFlow<NetworkResponse<Boolean>>()
     override val signUpResponse: SharedFlow<NetworkResponse<Boolean>>
         get() = _signUpResponse.asSharedFlow()
@@ -19,7 +24,8 @@ class SignUpRepositoryImpl @Inject constructor(private val apiInterface: APIInte
     override suspend fun requestForSignUp(user: User) {
         _signUpResponse.emit(NetworkResponse.Loading())
         try {
-            val response = apiInterface.requestSignUp(user)
+            val response =
+                apiInterface.requestSignUp(user)// this method will call when api is ready
 
             when (response.code()) {
                 in 200..299 -> {
@@ -71,5 +77,18 @@ class SignUpRepositoryImpl @Inject constructor(private val apiInterface: APIInte
         } catch (e: Exception) {
             _signUpResponse.emit(NetworkResponse.Error("Exception: ${e.message}"))
         }
+    }
+
+    override suspend fun insertUsers(users: List<User>) {
+        userDao.insertUsers(users)
+    }
+
+    override suspend fun insertUser(user: User): Long {
+
+        return userDao.insertUser(user)
+    }
+
+    override suspend fun checkUserExists(email: String): User? {
+        return userDao.checkUserByEmail(email)
     }
 }

@@ -67,4 +67,8 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.gmail.account)
+
+    implementation(libs.room.ktx)
+    implementation(libs.room.paging)
+    kapt(libs.kapt.room)
 }
