@@ -41,7 +41,7 @@ class SignInViewModel @Inject constructor(@SignInQualifier private val signInRep
                 val validUser = signInRepository.checkValidUser(userMail, userPass)
                 if (validUser != null) {
                     onResult(true, "Success")
-                    signIn = SignIn(validUser.id!!, validUser.email, validUser.name)
+                    signIn = SignIn(validUser.userId!!, validUser.email, validUser.userName)
                 } else {
                     onResult(false, "Email or Password is wrong")
                 }

@@ -9,9 +9,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class User(
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
+    val userId: Long? = null,
     val email: String,
-    val name: String,
+    val userName: String,
     val password: String,
     val dateOfBirth: String,
     val gender: String

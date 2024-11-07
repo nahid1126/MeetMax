@@ -5,7 +5,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.nahid.meetmax.R
 import com.nahid.meetmax.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         navController = findNavController(R.id.fragment)
-        binding.bottomNavigation.setupWithNavController(navController)
+        //binding.bottomNavigation.setupWithNavController(navController)
         val badge = binding.bottomNavigation.getOrCreateBadge(R.id.notification)
         badge.isVisible = true
         badge.number = 2
@@ -33,6 +32,31 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                     binding.bottomNavigation.visibility = View.VISIBLE
                 }
+            }
+        }
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.dashboardFragment -> {
+                    if (navController.currentDestination?.id == R.id.settingFragment) {
+                        navController.navigate(R.id.action_settingFragment_to_dashboardFragment)
+                    } else if (navController.currentDestination?.id == R.id.createPostFragment) {
+                        navController.navigate(R.id.action_createPostFragment_to_dashboardFragment)
+                    }
+                    true
+                }
+
+                R.id.settingFragment -> {
+                    if (navController.currentDestination?.id == R.id.dashboardFragment) {
+                        navController.navigate(R.id.action_dashboardFragment_to_settingFragment)
+                    } else if (navController.currentDestination?.id == R.id.createPostFragment) {
+                        navController.navigate(R.id.action_createPostFragment_to_settingFragment)
+                    } else {
+                        navController.navigate(R.id.action_signInFragment_to_dashboardFragment)
+                    }
+                    true
+                }
+
+                else -> false
             }
         }
     }

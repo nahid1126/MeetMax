@@ -25,7 +25,7 @@ class SettingFragment : Fragment() {
         binding = FragmentSettingBinding.inflate(layoutInflater)
         binding.setOnLogout {
             appPreferences.putLoginResponse("")
-            findNavController().navigate(R.id.action_dashboardFragment_to_signInFragment)
+            findNavController().navigate(R.id.action_settingFragment_to_signInFragment)
         }
         return binding.root
     }

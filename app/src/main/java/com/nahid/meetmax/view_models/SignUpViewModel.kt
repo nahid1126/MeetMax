@@ -63,7 +63,7 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
             } else {
                 val user = User(
                     email = userMail,
-                    name = userName,
+                    userName = userName,
                     password = userPass,
                     dateOfBirth = userDateOfBirth,
                     gender = genderSelect
@@ -86,25 +86,25 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
         viewModelScope.launch(IO) {
             val users = listOf(
                 User(
-                    id = 1,
+                    userId = 1,
                     email = "example1@gmail.com",
-                    name = "Example1",
+                    userName = "Example1",
                     password = "password1",
                     dateOfBirth = "1990-01-01",
                     gender = "Male"
                 ),
                 User(
-                    id = 2,
+                    userId = 2,
                     email = "example2@gmail.com",
-                    name = "Example2",
+                    userName = "Example2",
                     password = "password2",
                     dateOfBirth = "1998-01-01",
                     gender = "Male"
                 ),
                 User(
-                    id = 3,
+                    userId = 3,
                     email = "example3@gmail.com",
-                    name = "Example3",
+                    userName = "Example3",
                     password = "password3",
                     dateOfBirth = "1996-01-01",
                     gender = "Female"

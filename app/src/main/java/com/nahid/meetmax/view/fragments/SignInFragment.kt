@@ -34,6 +34,7 @@ class SignInFragment : Fragment() {
     private lateinit var signInViewModel: SignInViewModel
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var progressDialog: ProgressDialog
+    private var isRememberMeChecked = false
 
     @Inject
     lateinit var appPreferences: AppPreferences
@@ -62,13 +63,19 @@ class SignInFragment : Fragment() {
                 }
             }
         }
-
+        binding.checkbox.setOnClickListener {
+            isRememberMeChecked = binding.checkbox.isChecked
+        }
         binding.buttonSignIn.setOnClickListener {
             //signInViewModel.signIn() when api is ready for login then uncomment this and remove below line and callbackFunction from viewModel
             signInViewModel.signIn { response, message ->
                 if (response) {
                     CustomToast.showToast(requireContext(), message, Status.SUCCESS)
-                    signInViewModel.setUserData(appPreferences)
+                    if (isRememberMeChecked) {
+                        signInViewModel.setUserData(appPreferences)
+                    } else {
+                        appPreferences.putLoginResponse("")
+                    }
                     findNavController().navigate(R.id.action_signInFragment_to_dashboardFragment)
                 } else {
                     CustomToast.showToast(requireContext(), message, Status.FAILED)
