@@ -49,7 +49,7 @@ interface UserDao {
     // Queries to get all posts and their relationships
     @Transaction
     @Query("SELECT * FROM Post")
-    suspend fun getAllPostsWithUserInfo(): List<PostWithCommentsAndLikes>
+    fun getAllPostsWithUserInfo(): Flow<List<PostWithCommentsAndLikes>>
 
     @Transaction
     @Query("SELECT * FROM Post WHERE postId = :postId")

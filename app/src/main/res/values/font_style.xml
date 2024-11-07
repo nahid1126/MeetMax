@@ -63,6 +63,7 @@
     <style name="BodyMedium">
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/hint_text_color</item>
         <item name="android:textStyle">normal</item>
     </style>
 </resources>

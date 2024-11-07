@@ -6,6 +6,12 @@ import androidx.room.Relation
 data class PostWithCommentsAndLikes(
     @Embedded val post: Post,
     @Relation(
+        parentColumn = "userOwnerId",
+        entityColumn = "userId"
+    )
+    val user: User,
+
+    @Relation(
         parentColumn = "postId",
         entityColumn = "postOwnerId"
     )

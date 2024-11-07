@@ -5,6 +5,10 @@
 
     <data>
 
+        <import type="com.nahid.meetmax.view_models.UserViewModel" />
+        <variable
+            name="userViewModel"
+            type="UserViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -14,6 +18,7 @@
         tools:context=".view.fragments.CreatePostFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
         <ImageView
@@ -22,7 +27,7 @@
             android:layout_height="@dimen/dimen32dp"
             android:layout_marginStart="@dimen/margin20dp"
             android:layout_marginTop="@dimen/margin20dp"
-            android:src="@drawable/explore"
+            android:src="@drawable/profile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,6 +39,7 @@
             android:background="@drawable/shape"
             android:drawableStart="@drawable/search"
             android:drawablePadding="@dimen/app_margin"
+            android:textColor="@color/text_color"
             android:gravity="center_vertical"
             android:textSize="@dimen/textSizeL"
             android:hint="Search for something here..."
@@ -74,6 +80,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/app_margin"
             android:text="Visible For"
+            android:textColor="@color/hint_text_color"
             app:layout_constraintBottom_toBottomOf="@id/textCreatePost"
             app:layout_constraintEnd_toStartOf="@+id/visibleFor"
             app:layout_constraintTop_toTopOf="@id/textCreatePost" />
@@ -112,7 +119,7 @@
             android:layout_width="@dimen/dimen32dp"
             android:layout_height="@dimen/dimen32dp"
             android:layout_marginTop="@dimen/margin20dp"
-            android:src="@drawable/explore"
+            android:src="@drawable/profile"
             app:layout_constraintStart_toStartOf="@id/textCreatePost"
             app:layout_constraintTop_toBottomOf="@+id/spaceLine" />
 
@@ -140,6 +147,8 @@
                     android:background="@drawable/shape"
                     android:hint="What's on your mind?"
                     android:maxLines="10"
+                    android:text="@={userViewModel.content}"
+                    android:textColor="@color/bg"
                     android:overScrollMode="always"
                     android:padding="@dimen/padding6dp"
                     android:scrollbars="vertical" />
@@ -147,6 +156,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:visibility="gone"
                     android:padding="@dimen/app_margin"
                     android:scaleType="fitXY" />
             </LinearLayout>
@@ -162,6 +172,7 @@
             android:drawableLeft="@drawable/video_camera"
             android:drawablePadding="@dimen/padding6dp"
             android:padding="@dimen/padding6dp"
+            android:textColor="@color/bg"
             android:text="Live Video"
             app:layout_constraintStart_toStartOf="@+id/imagePost"
             app:layout_constraintTop_toBottomOf="@+id/postAndImageLayout" />
@@ -175,6 +186,7 @@
             android:drawableLeft="@drawable/picture"
             android:drawablePadding="@dimen/padding6dp"
             android:padding="@dimen/padding6dp"
+            android:textColor="@color/bg"
             android:text="Photo/Video"
             app:layout_constraintStart_toStartOf="@+id/imagePost"
             app:layout_constraintTop_toBottomOf="@+id/liveVideo" />
@@ -185,6 +197,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin4dp"
+            android:textColor="@color/bg"
             android:drawableLeft="@drawable/feeling"
             android:drawablePadding="@dimen/padding6dp"
             android:padding="@dimen/padding6dp"
@@ -193,7 +206,7 @@
             app:layout_constraintTop_toBottomOf="@+id/photoVideo" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonSend"
+            android:id="@+id/buttonPost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin20dp"

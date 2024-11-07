@@ -11,53 +11,153 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background_color"
         tools:context=".view.fragments.DashboardFragment">
 
-        <ImageView
-            android:id="@+id/imageTitle"
-            android:layout_width="@dimen/dimen32dp"
-            android:layout_height="@dimen/dimen32dp"
-            android:layout_marginStart="@dimen/margin20dp"
-            android:layout_marginTop="@dimen/margin20dp"
-            android:src="@drawable/explore"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textSearch"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin20dp"
-            android:background="@drawable/shape"
-            android:drawableStart="@drawable/search"
-            android:drawablePadding="@dimen/app_margin"
-            android:gravity="center_vertical"
-            android:hint="Search for something here..."
-            android:padding="@dimen/app_margin"
-            app:layout_constraintBottom_toBottomOf="@+id/imageTitle"
-            app:layout_constraintEnd_toStartOf="@+id/imageMessage"
-            app:layout_constraintStart_toEndOf="@+id/imageTitle"
-            app:layout_constraintTop_toTopOf="@+id/imageTitle" />
-
-        <ImageView
-            android:id="@+id/imageMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin20dp"
-            android:src="@drawable/message"
-            app:layout_constraintBottom_toBottomOf="@+id/imageTitle"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textSearch"
-            app:layout_constraintTop_toTopOf="@+id/imageTitle" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/post"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imageTitle"
+                android:layout_width="@dimen/dimen32dp"
+                android:layout_height="@dimen/dimen32dp"
+                android:layout_marginVertical="@dimen/margin20dp"
+                android:layout_marginStart="@dimen/margin20dp"
+                android:src="@drawable/profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin20dp"
+                android:background="@drawable/shape"
+                android:drawableStart="@drawable/search"
+                android:drawablePadding="@dimen/app_margin"
+                android:gravity="center_vertical"
+                android:hint="Search for something here..."
+                android:padding="@dimen/app_margin"
+                app:layout_constraintBottom_toBottomOf="@+id/imageTitle"
+                app:layout_constraintEnd_toStartOf="@+id/imageMessage"
+                app:layout_constraintStart_toEndOf="@+id/imageTitle"
+                app:layout_constraintTop_toTopOf="@+id/imageTitle" />
+
+            <ImageView
+                android:id="@+id/imageMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin20dp"
+                android:src="@drawable/message"
+                app:layout_constraintBottom_toBottomOf="@+id/imageTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textSearch"
+                app:layout_constraintTop_toTopOf="@+id/imageTitle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/postLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="post"
+            android:layout_marginTop="@dimen/margin10dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topLayout">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="@dimen/dimen32dp"
+                android:layout_height="@dimen/dimen32dp"
+                android:layout_marginVertical="@dimen/margin20dp"
+                android:layout_marginStart="@dimen/margin20dp"
+                android:src="@drawable/profile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textPost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin20dp"
+                android:background="@drawable/shape"
+                android:drawableStart="@drawable/search"
+                android:drawablePadding="@dimen/app_margin"
+                android:gravity="center_vertical"
+                android:hint="What's happening?"
+                android:padding="@dimen/app_margin"
+                app:layout_constraintBottom_toBottomOf="@+id/image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toTopOf="@+id/image" />
+
+            <TextView
+                android:id="@+id/live"
+                style="@style/DisplayBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin10dp"
+                android:drawableLeft="@drawable/video_camera"
+                android:drawablePadding="@dimen/padding6dp"
+                android:text="Live"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/image" />
+
+            <TextView
+                android:id="@+id/photo"
+                style="@style/DisplayBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/app_margin"
+                android:drawableLeft="@drawable/picture"
+                android:drawablePadding="@dimen/padding6dp"
+                android:text="Photo"
+                app:layout_constraintStart_toEndOf="@+id/live"
+                app:layout_constraintTop_toTopOf="@+id/live" />
+
+            <TextView
+                android:id="@+id/feeling"
+                style="@style/DisplayBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/app_margin"
+                android:drawableLeft="@drawable/feeling"
+                android:drawablePadding="@dimen/padding6dp"
+                android:text="Feeling"
+                app:layout_constraintStart_toEndOf="@+id/photo"
+                app:layout_constraintTop_toTopOf="@+id/live" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin10dp"
+                android:padding="@dimen/app_margin"
+                android:text="post"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/theme"
+                app:layout_constraintBottom_toBottomOf="@+id/live"
+                app:layout_constraintEnd_toEndOf="@+id/textPost"
+                app:layout_constraintTop_toTopOf="@+id/live" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin10dp"
+            tools:listitem="@layout/row_post_item"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageTitle" />
+            app:layout_constraintTop_toBottomOf="@id/postLayout" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
