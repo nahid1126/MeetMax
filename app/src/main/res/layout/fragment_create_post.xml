@@ -116,35 +116,42 @@
             app:layout_constraintStart_toStartOf="@id/textCreatePost"
             app:layout_constraintTop_toBottomOf="@+id/spaceLine" />
 
-        <LinearLayout
-            android:id="@+id/postAndImageLayout"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
+            android:id="@+id/postAndImageLayout"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/background_color"
+            app:cardCornerRadius="@dimen/app_margin"
             android:layout_marginStart="@dimen/margin20dp"
-            android:background="@drawable/bg"
-            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="@+id/spaceLine"
             app:layout_constraintStart_toEndOf="@+id/imagePost"
             app:layout_constraintTop_toTopOf="@+id/imagePost">
 
-            <EditText
-                style="@style/BodyRegular"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/app_margin"
-                android:background="@drawable/bg"
-                android:hint="What's on your mind?"
-                android:maxLines="10"
-                android:scrollbars="vertical"
-                android:overScrollMode="always"
-                android:padding="@dimen/padding6dp" />
+                android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:padding="@dimen/app_margin"
-                android:scaleType="fitXY" />
-        </LinearLayout>
+                <EditText
+                    style="@style/BodyRegular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/app_margin"
+                    android:background="@drawable/shape"
+                    android:hint="What's on your mind?"
+                    android:maxLines="10"
+                    android:overScrollMode="always"
+                    android:padding="@dimen/padding6dp"
+                    android:scrollbars="vertical" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:padding="@dimen/app_margin"
+                    android:scaleType="fitXY" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
 
         <TextView
             android:id="@+id/liveVideo"
