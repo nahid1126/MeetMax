@@ -9,6 +9,7 @@
         <import type="com.nahid.meetmax.utils.ApplicationCallBack.AdapterClickListener"/>
 
         <import type="com.nahid.meetmax.view_models.UserViewModel" />
+        <import type="android.view.View"/>
 
         <variable
             name="userViewModel"
@@ -21,6 +22,13 @@
         <variable
             name="adapterClickListener"
             type="AdapterClickListener" />
+
+        <variable
+            name="likeCount"
+            type="Integer" />
+        <variable
+            name="imageShow"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin20dp"
             android:layout_marginTop="@dimen/margin10dp"
-            android:src="@drawable/profile"
+            setImageResource="@{model.user.profileImage}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,7 +63,7 @@
             style="@style/BodyMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="19h"
+            setTimeAgo="@{model.post.timestamp}"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -77,17 +85,31 @@
             android:padding="@dimen/app_margin"
             android:text="@{model.post.content}"
             android:textColor="@color/bg"
+            android:layout_marginTop="@dimen/app_margin"
             app:layout_constraintEnd_toEndOf="@+id/other"
             app:layout_constraintStart_toStartOf="@+id/profile"
             app:layout_constraintTop_toBottomOf="@+id/time" />
 
         <ImageView
+            android:id="@+id/imageUpload"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:padding="@dimen/app_margin"
+            setImage="@{model.post.imageUrl}"
+            android:scaleType="fitXY"
+            android:visibility="@{imageShow?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toEndOf="@+id/postContent"
+            app:layout_constraintStart_toStartOf="@+id/postContent"
+            app:layout_constraintTop_toBottomOf="@+id/postContent" />
+
+        <TextView
             android:id="@+id/likeImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/avatar_like"
+            style="@style/DisplayMedium"
+            android:text="@{likeCount+` Likes`}"
             app:layout_constraintStart_toStartOf="@+id/profile"
-            app:layout_constraintTop_toBottomOf="@+id/postContent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageUpload" />
 
         <TextView
             android:id="@+id/comments"
@@ -162,8 +184,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/app_margin"
-            android:src="@drawable/profile"
-            app:layout_constraintStart_toStartOf="@id/profile"
+            setImageResource="@{model.user.profileImage}"            app:layout_constraintStart_toStartOf="@id/profile"
             app:layout_constraintTop_toBottomOf="@+id/viewBottom" />
 
         <LinearLayout

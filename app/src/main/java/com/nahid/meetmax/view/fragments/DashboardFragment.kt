@@ -1,11 +1,9 @@
 package com.nahid.meetmax.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -16,11 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nahid.meetmax.R
 import com.nahid.meetmax.databinding.FragmentDashboardBinding
 import com.nahid.meetmax.model.data.PostWithCommentsAndLikes
+import com.nahid.meetmax.model.data.User
 import com.nahid.meetmax.utils.AppPreferences
 import com.nahid.meetmax.utils.ApplicationCallBack
 import com.nahid.meetmax.utils.CustomToast
 import com.nahid.meetmax.utils.Status
 import com.nahid.meetmax.view.adapter.PostAdapter
+import com.nahid.meetmax.view.adapter.UserAdapter
 import com.nahid.meetmax.view_models.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -32,13 +32,16 @@ class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
     private lateinit var userViewModel: UserViewModel
     private lateinit var postWithCommentsAndLikes: ArrayList<PostWithCommentsAndLikes>
-    private lateinit var postIds: List<Long>
+    private lateinit var userList: List<User>
 
     @Inject
     lateinit var appPreferences: AppPreferences
 
     @Inject
     lateinit var postAdapter: PostAdapter
+
+    @Inject
+    lateinit var userAdapter: UserAdapter
 
 
     override fun onCreateView(
@@ -48,11 +51,17 @@ class DashboardFragment : Fragment() {
         binding = FragmentDashboardBinding.inflate(layoutInflater)
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        binding.userViewModel = userViewModel
         binding.lifecycleOwner = this
 
+
+        appPreferences.getGetUserEmail()?.let {
+            userViewModel.setUser(it)
+        }
         postWithCommentsAndLikes = arrayListOf()
-        postIds = listOf()
+        userList = listOf()
         setUpRecyclerView()
+        setUpUserRecyclerView()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -76,16 +85,27 @@ class DashboardFragment : Fragment() {
                         postWithCommentsAndLikes = it as ArrayList
                         postAdapter.setPostList(postWithCommentsAndLikes)
                         postAdapter.setViewModel(userViewModel)
-                        Log.d(TAG, "onCreateView: ${it.map { it.likes.size }}")
-                        /*postWithCommentsAndLikes.forEach { postWithCommentsAndLikes ->
-                            val postId = postWithCommentsAndLikes.post.postId!!
-                            userViewModel.fetchLikeCount(postId) // Fetch like count for each post
-                        }*/
+                    }
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                userViewModel.fetchAllUser().collect {
+                    if (it.isNotEmpty()) {
+                        userList = it as ArrayList
+                        userAdapter.setUserList(userList)
                     }
                 }
             }
         }
         return binding.root
+    }
+
+    private fun setUpUserRecyclerView() {
+        binding.recyclerviewUser.apply {
+            adapter = userAdapter
+        }
     }
 
     private fun setUpRecyclerView() {

@@ -27,7 +27,8 @@
             android:layout_height="@dimen/dimen32dp"
             android:layout_marginStart="@dimen/margin20dp"
             android:layout_marginTop="@dimen/margin20dp"
-            android:src="@drawable/profile"
+            setImageResource="@{userViewModel.image}"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -120,7 +121,8 @@
             android:layout_width="@dimen/dimen32dp"
             android:layout_height="@dimen/dimen32dp"
             android:layout_marginTop="@dimen/margin20dp"
-            android:src="@drawable/profile"
+            setImageResource="@{userViewModel.image}"
+
             app:layout_constraintStart_toStartOf="@id/textCreatePost"
             app:layout_constraintTop_toBottomOf="@+id/spaceLine" />
 
@@ -155,6 +157,7 @@
                     android:scrollbars="vertical" />
 
                 <ImageView
+                    android:id="@+id/imageUpload"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:visibility="gone"

@@ -3,6 +3,7 @@ package com.nahid.meetmax.view_models
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nahid.meetmax.R
 import com.nahid.meetmax.di.qualifier.SignInQualifier
 import com.nahid.meetmax.di.qualifier.UserQualifier
 import com.nahid.meetmax.model.data.User
@@ -27,24 +28,42 @@ class UserViewModel @Inject constructor(
     ViewModel() {
 
     private var user: User? = null
+    var userName = MutableStateFlow<String>("")
+    var userMail = MutableStateFlow<String>("")
     var message = MutableSharedFlow<String>()
     var content = MutableStateFlow<String>("")
     var comment = MutableStateFlow<String>("")
+    var image = MutableStateFlow<Int>(0)
 
-    fun getUser(email: String) {
+    val postImageFlow = MutableStateFlow<String>("")
+
+
+
+    fun setPostImageImage(firstImage: String) {
+        postImageFlow.value = firstImage
+    }
+    fun setUser(email: String) {
         viewModelScope.launch(IO) {
             user = signInRepository.checkMailFound(email)
+            Log.d(TAG, "setUser: $user")
+            user?.let {
+                userMail.value = it.email
+                userName.value = it.userName
+                image.value = it.profileImage!!
+            }
         }
     }
 
+
     fun addPost(onResult: (Boolean, String) -> Unit) {
         val content = content.value
+        val postImage = postImageFlow.value
         viewModelScope.launch {
             if (content.isEmpty()) {
                 message.emit("Please write something")
             } else {
                 Log.d(TAG, "addPost: $content ${user?.userId}")
-                val result = userRepository.addPost(content, user?.userId!!)
+                val result = userRepository.addPost(content, user?.userId!!,postImage)
                 if (result != -1L) {
                     onResult(true, "Post added successfully")
                 } else {
@@ -57,6 +76,11 @@ class UserViewModel @Inject constructor(
 
     fun fetchAllPosts() =
         userRepository.getAllPostsWithDetails().stateIn(
+            viewModelScope, SharingStarted.WhileSubscribed(), emptyList()
+        )
+
+    fun fetchAllUser() =
+        userRepository.getAllUsers().stateIn(
             viewModelScope, SharingStarted.WhileSubscribed(), emptyList()
         )
 
@@ -82,7 +106,7 @@ class UserViewModel @Inject constructor(
             if (comments.isEmpty()) {
                 Log.d(TAG, "addComment: empty")
             } else {
-                val result = userRepository.addComment(comments, postId, userId)
+                val result = userRepository.addComment(comments, postId, userId, user!!.userName)
                 if (result != -1L) {
                     comment.value = ""
                 }

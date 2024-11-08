@@ -24,6 +24,8 @@ data class Comment(
     @PrimaryKey(autoGenerate = true)
     val commentId: Long? = null,
     val comment: String,
+    val commentUser: String,
+    val timestamp: Long = System.currentTimeMillis(),
     val postOwnerId: Long,
     val userCommenterId: Long
 ):Parcelable

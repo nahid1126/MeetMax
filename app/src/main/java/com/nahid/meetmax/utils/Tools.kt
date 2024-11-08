@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
+import java.util.concurrent.TimeUnit
 
 object Tools {
     fun setSystemBarColor(act: Activity, @ColorRes color: Int) {
@@ -79,5 +80,20 @@ object Tools {
         utc.timeInMillis = dateTime!!
         val format = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
         return format.format(utc.time)
+    }
+
+    fun getTimeAgo(timestampMillis: Long): String {
+        val now = System.currentTimeMillis()
+        val diff = now - timestampMillis
+
+        return when {
+            diff < TimeUnit.MINUTES.toMillis(1) -> "just now"
+            diff < TimeUnit.HOURS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toMinutes(diff)} min ago"
+            diff < TimeUnit.DAYS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toHours(diff)} h ago"
+            diff < TimeUnit.DAYS.toMillis(2) -> "yesterday"
+            diff < TimeUnit.DAYS.toMillis(30) -> "${TimeUnit.MILLISECONDS.toDays(diff)} days ago"
+            diff < TimeUnit.DAYS.toMillis(365) -> "${TimeUnit.MILLISECONDS.toDays(diff) / 30} months ago"
+            else -> "${TimeUnit.MILLISECONDS.toDays(diff) / 365} years ago"
+        }
     }
 }

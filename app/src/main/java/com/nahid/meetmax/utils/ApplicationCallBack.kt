@@ -11,10 +11,6 @@ interface ApplicationCallBack {
 
 
     interface MainListener {
-        fun clearAllStack()
-        fun requestNearbyPermission()
         fun requestStoragePermission()
-        fun onRequestLocationPermission()
-        fun onRequestNotificationPermission()
     }
 }

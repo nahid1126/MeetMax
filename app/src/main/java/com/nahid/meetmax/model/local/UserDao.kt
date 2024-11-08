@@ -31,6 +31,9 @@ interface UserDao {
     @Query("DELETE FROM User WHERE email = :email")
     suspend fun deleteUserByEmail(email: String)
 
+  @Query("SELECT * FROM User")
+  fun getAllUser(): Flow<List<User>>
+
     // Post-related methods
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPost(post: Post): Long

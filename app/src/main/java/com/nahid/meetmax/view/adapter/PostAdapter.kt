@@ -1,5 +1,6 @@
 package com.nahid.meetmax.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,10 +11,10 @@ import com.nahid.meetmax.utils.ApplicationCallBack
 import com.nahid.meetmax.view_models.UserViewModel
 import javax.inject.Inject
 
+private const val TAG = "PostAdapter"
 class PostAdapter @Inject constructor() : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     private var postList = listOf<PostWithCommentsAndLikes>()
     private lateinit var adapterClickListener: ApplicationCallBack.AdapterClickListener
-    private var likeCount: Int = 0
     private lateinit var userViewModel: UserViewModel
 
     @Inject
@@ -44,6 +45,9 @@ class PostAdapter @Inject constructor() : RecyclerView.Adapter<PostAdapter.PostV
             binding.model = post
             post.likes.size
             binding.adapterClickListener = adapterClickListener
+            binding.likeCount = post.likes.size
+            Log.d(TAG, "binding: ")
+            binding.imageShow = !post.post.imageUrl.isNullOrEmpty()
             binding.userViewModel = userViewModel
             binding.recyclerviewComment.apply {
                 layoutManager = LinearLayoutManager(context)

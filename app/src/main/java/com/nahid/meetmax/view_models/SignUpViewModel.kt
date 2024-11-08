@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 private const val TAG = "SignUpViewModel"
 @HiltViewModel
@@ -30,6 +31,13 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
     val selectedOption = MutableStateFlow<Int>(0)
 
     val signUpResponse = signUpRepository.signUpResponse
+    val imageResources = listOf(
+        R.drawable.image_one, // Replace with your actual image drawables
+        R.drawable.image_two,
+        R.drawable.image_three,
+        R.drawable.image_four,
+        R.drawable.image_five
+    )
 
     fun signUp(onResult: (Boolean, String) -> Unit) {
         val userMail = userMailFlow.value
@@ -61,12 +69,15 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
             } else if (genderSelect.isEmpty()) {
                 message.emit("Please Select Gender")
             } else {
+                val randomImageResource = imageResources[Random.nextInt(imageResources.size)]
+
                 val user = User(
                     email = userMail,
                     userName = userName,
                     password = userPass,
                     dateOfBirth = userDateOfBirth,
-                    gender = genderSelect
+                    gender = genderSelect,
+                    profileImage = randomImageResource
                 )
                 /*signUpRepository.requestForSignUp(user)
                 when api is ready then uncomment this line and and remove callback
@@ -89,25 +100,10 @@ class SignUpViewModel @Inject constructor(@SignUpQualifier private val signUpRep
                     userId = 1,
                     email = "example1@gmail.com",
                     userName = "Example1",
-                    password = "password1",
+                    password = "12345678Aa",
                     dateOfBirth = "1990-01-01",
-                    gender = "Male"
-                ),
-                User(
-                    userId = 2,
-                    email = "example2@gmail.com",
-                    userName = "Example2",
-                    password = "password2",
-                    dateOfBirth = "1998-01-01",
-                    gender = "Male"
-                ),
-                User(
-                    userId = 3,
-                    email = "example3@gmail.com",
-                    userName = "Example3",
-                    password = "password3",
-                    dateOfBirth = "1996-01-01",
-                    gender = "Female"
+                    gender = "Male",
+                    profileImage = R.drawable.image_one
                 )
             )
             signUpRepository.insertUsers(users)
