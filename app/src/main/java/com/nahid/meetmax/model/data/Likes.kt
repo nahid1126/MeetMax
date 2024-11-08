@@ -3,6 +3,7 @@ package com.nahid.meetmax.model.data
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
@@ -20,9 +21,10 @@ import kotlinx.parcelize.Parcelize
     )]
 )
 @Parcelize
-data class Like(
+data class Likes(
     @PrimaryKey(autoGenerate = true)
     val likeId: Long? = null,
     val postLikedId: Long,
     val userLikedId: Long
-):Parcelable
+): Parcelable
+

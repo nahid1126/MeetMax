@@ -50,12 +50,16 @@ class SignInViewModel @Inject constructor(@SignInQualifier private val signInRep
         }
     }
 
+    fun setUserMail(appPreferences: AppPreferences) {
+        viewModelScope.launch {
+            appPreferences.putUserEmail(userMailFlow.value.trim())
+        }
+    }
+
     fun setUserData(appPreferences: AppPreferences, userInfo: SignIn? = signIn) {
         viewModelScope.launch {
-            val userId = userMailFlow.value.trim()
-            val password = userPassFlow.value.trim()
-            appPreferences.putUserEmail(userId)
-            appPreferences.putUserPass(password)
+            val userMail = userMailFlow.value.trim()
+            appPreferences.putUserEmail(userMail)
             val loginResponseJson = Gson().toJson(userInfo)
             appPreferences.putLoginResponse(loginResponseJson)
         }

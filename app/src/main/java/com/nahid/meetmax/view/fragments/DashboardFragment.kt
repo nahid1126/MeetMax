@@ -1,6 +1,7 @@
 package com.nahid.meetmax.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,17 +18,21 @@ import com.nahid.meetmax.databinding.FragmentDashboardBinding
 import com.nahid.meetmax.model.data.PostWithCommentsAndLikes
 import com.nahid.meetmax.utils.AppPreferences
 import com.nahid.meetmax.utils.ApplicationCallBack
+import com.nahid.meetmax.utils.CustomToast
+import com.nahid.meetmax.utils.Status
 import com.nahid.meetmax.view.adapter.PostAdapter
 import com.nahid.meetmax.view_models.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private const val TAG = "DashboardFragment"
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
     private lateinit var userViewModel: UserViewModel
     private lateinit var postWithCommentsAndLikes: ArrayList<PostWithCommentsAndLikes>
-
+    private lateinit var postIds: List<Long>
 
     @Inject
     lateinit var appPreferences: AppPreferences
@@ -43,10 +48,24 @@ class DashboardFragment : Fragment() {
         binding = FragmentDashboardBinding.inflate(layoutInflater)
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        binding.lifecycleOwner = this
 
         postWithCommentsAndLikes = arrayListOf()
+        postIds = listOf()
         setUpRecyclerView()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                userViewModel.message.collect {
+                    CustomToast.showToast(requireContext(), it, Status.FAILED)
+                }
+            }
+        }
+
         binding.post.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_createPostFragment)
+        }
+        binding.textPost.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_createPostFragment)
         }
 
@@ -56,6 +75,12 @@ class DashboardFragment : Fragment() {
                     if (it.isNotEmpty()) {
                         postWithCommentsAndLikes = it as ArrayList
                         postAdapter.setPostList(postWithCommentsAndLikes)
+                        postAdapter.setViewModel(userViewModel)
+                        Log.d(TAG, "onCreateView: ${it.map { it.likes.size }}")
+                        /*postWithCommentsAndLikes.forEach { postWithCommentsAndLikes ->
+                            val postId = postWithCommentsAndLikes.post.postId!!
+                            userViewModel.fetchLikeCount(postId) // Fetch like count for each post
+                        }*/
                     }
                 }
             }
@@ -76,7 +101,7 @@ class DashboardFragment : Fragment() {
                 }
 
                 override fun onCommentClick(postId: Long, userId: Long) {
-                    Toast.makeText(requireContext(), "comment clicked", Toast.LENGTH_SHORT).show()
+                    userViewModel.addComment(postId, userId)
                 }
 
             })

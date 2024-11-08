@@ -29,11 +29,4 @@ class AppPreferences @Inject constructor(@ApplicationContext context: Context) {
     fun getGetUserEmail(): String? {
         return preferences.getString(Constants.USER_EMAIL, null)
     }
-    fun putUserPass(userPass: String) {
-        editor.putString(Constants.USER_PASSWORD, userPass)
-        editor.apply()
-    }
-    fun getGetUserPass(): String? {
-        return preferences.getString(Constants.USER_PASSWORD, null)
-    }
 }

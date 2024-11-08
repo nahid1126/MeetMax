@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.nahid.meetmax.model.data.Comment" />
+
+        <variable
+            name="commentModel"
+            type="Comment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_margin">
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin20dp"
+            android:layout_marginTop="@dimen/margin10dp"
+            android:src="@drawable/profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/contentCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin20dp"
+            android:layout_marginBottom="@dimen/app_margin"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/app_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profile"
+            app:layout_constraintTop_toTopOf="@id/profile">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin10dp"
+                    android:src="@drawable/other"
+                    app:layout_constraintBottom_toBottomOf="@id/CommenterName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/CommenterName" />
+
+                <TextView
+                    android:id="@+id/CommenterName"
+                    style="@style/DisplayMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin10dp"
+                    android:layout_marginTop="@dimen/app_margin"
+                    android:padding="@dimen/padding2dp"
+                    android:text="Nahid"
+                    android:textColor="@color/bg"
+                    app:layout_constraintEnd_toStartOf="@+id/other"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/commentHour"
+                    style="@style/BodyMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="10h ago"
+                    android:textColor="@color/hint_text_color"
+                    app:layout_constraintEnd_toEndOf="@id/CommenterName"
+                    app:layout_constraintStart_toStartOf="@+id/CommenterName"
+                    app:layout_constraintTop_toBottomOf="@+id/CommenterName" />
+
+                <TextView
+                    android:id="@+id/comment"
+                    style="@style/BodyMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/app_margin"
+                    android:text="@{commentModel.comment}"
+                    android:textColor="@color/bg"
+                    app:layout_constraintEnd_toEndOf="@id/CommenterName"
+                    app:layout_constraintStart_toStartOf="@id/CommenterName"
+                    app:layout_constraintTop_toBottomOf="@+id/commentHour" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/like"
+            style="@style/BodyBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin10dp"
+            android:layout_marginTop="@dimen/app_margin"
+            android:text="Like"
+            android:textColor="@color/bg"
+            app:layout_constraintStart_toStartOf="@id/contentCard"
+            app:layout_constraintTop_toBottomOf="@id/contentCard" />
+
+        <TextView
+            style="@style/BodyBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin20dp"
+            android:text="Reply"
+            android:textColor="@color/bg"
+            app:layout_constraintBottom_toBottomOf="@id/like"
+            app:layout_constraintStart_toEndOf="@id/like"
+            app:layout_constraintTop_toTopOf="@id/like" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

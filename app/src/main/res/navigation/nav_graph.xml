@@ -100,7 +100,7 @@
         <action
             android:id="@+id/action_settingFragment_to_signInFragment"
             app:destination="@id/signInFragment"
-            app:popUpTo="@id/settingFragment"
+            app:popUpTo="@id/dashboardFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

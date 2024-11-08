@@ -18,6 +18,7 @@ import kotlinx.parcelize.Parcelize
 data class Post(
     @PrimaryKey(autoGenerate = true)
     val postId: Long? = null,
+    val imageUrl: String? = null,
     val content: String,
     val timestamp: Long,
     val userOwnerId: Long

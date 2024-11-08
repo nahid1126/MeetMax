@@ -20,5 +20,5 @@ data class PostWithCommentsAndLikes(
         parentColumn = "postId",
         entityColumn = "postLikedId"
     )
-    val likes: List<Like>
+    val likes: List<Likes>
 )

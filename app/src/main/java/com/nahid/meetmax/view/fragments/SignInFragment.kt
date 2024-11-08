@@ -74,6 +74,7 @@ class SignInFragment : Fragment() {
                     if (isRememberMeChecked) {
                         signInViewModel.setUserData(appPreferences)
                     } else {
+                        signInViewModel.setUserMail(appPreferences)
                         appPreferences.putLoginResponse("")
                     }
                     findNavController().navigate(R.id.action_signInFragment_to_dashboardFragment)

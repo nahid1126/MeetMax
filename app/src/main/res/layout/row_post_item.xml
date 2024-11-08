@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="com.nahid.meetmax.model.data.PostWithCommentsAndLikes" />
         <import type="com.nahid.meetmax.utils.ApplicationCallBack.AdapterClickListener"/>
+
+        <import type="com.nahid.meetmax.view_models.UserViewModel" />
+
+        <variable
+            name="userViewModel"
+            type="UserViewModel" />
 
         <variable
             name="model"
@@ -88,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin20dp"
-            android:text="@{model.comments.size()+`Comments`}"
+            android:text="@{model.comments.size()+` Comments`}"
             app:layout_constraintBottom_toBottomOf="@id/likeImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/likeImage" />
@@ -104,7 +111,7 @@
             app:layout_constraintTop_toBottomOf="@id/likeImage" />
 
         <TextView
-            android:id="@+id/like"
+            android:id="@+id/likes"
             style="@style/DisplayMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -125,10 +132,9 @@
             android:drawablePadding="@dimen/padding6dp"
             android:padding="@dimen/app_margin"
             android:text="Comments"
-            android:onClick="@{()-> adapterClickListener.onCommentClick(model.post.postId,model.user.userId)}"
             app:layout_constraintEnd_toStartOf="@+id/share"
-            app:layout_constraintStart_toEndOf="@id/like"
-            app:layout_constraintTop_toTopOf="@+id/like" />
+            app:layout_constraintStart_toEndOf="@id/likes"
+            app:layout_constraintTop_toTopOf="@+id/likes" />
 
         <TextView
             android:id="@+id/share"
@@ -140,7 +146,7 @@
             android:padding="@dimen/app_margin"
             android:text="Share"
             app:layout_constraintEnd_toEndOf="@+id/other"
-            app:layout_constraintTop_toTopOf="@+id/like" />
+            app:layout_constraintTop_toTopOf="@+id/likes" />
 
         <View
             android:id="@+id/viewBottom"
@@ -149,7 +155,7 @@
             android:background="@color/background_color"
             app:layout_constraintEnd_toEndOf="@id/comments"
             app:layout_constraintStart_toStartOf="@id/profile"
-            app:layout_constraintTop_toBottomOf="@id/like" />
+            app:layout_constraintTop_toBottomOf="@id/likes" />
 
         <ImageView
             android:id="@+id/commenterProfile"
@@ -178,6 +184,7 @@
                 android:layout_weight=".7"
                 android:gravity="center_vertical"
                 android:hint="Write a comment..."
+                android:text="@={userViewModel.comment}"
                 android:background="#F4F5F7"
                 android:padding="@dimen/app_margin" />
 
@@ -213,9 +220,22 @@
             android:background="@drawable/send_bg"
             android:padding="@dimen/app_margin"
             android:src="@drawable/send"
+            android:onClick="@{()-> adapterClickListener.onCommentClick(model.post.postId,model.user.userId)}"
             app:layout_constraintBottom_toBottomOf="@+id/commenterProfile"
             app:layout_constraintEnd_toEndOf="@id/other"
             app:layout_constraintTop_toTopOf="@+id/commenterProfile"
             app:tint="@color/theme" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_margin"
+            android:background="@color/background_color"
+            app:layout_constraintEnd_toEndOf="@+id/other"
+            app:layout_constraintStart_toStartOf="@id/commenterProfile"
+            app:layout_constraintTop_toBottomOf="@+id/commenterProfile"
+            tools:itemCount="2"
+            tools:listitem="@layout/row_comment_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

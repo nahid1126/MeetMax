@@ -2,6 +2,7 @@ package com.nahid.meetmax.view.fragments
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.os.Parcel
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
@@ -113,13 +114,28 @@ class SignUpFragment : Fragment() {
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
         val today = MaterialDatePicker.todayInUtcMilliseconds()
         calendar.timeInMillis = today
+        calendar.add(Calendar.DAY_OF_MONTH, 0)
         val constraintsBuilder = CalendarConstraints.Builder()
             .setEnd(today)
+            .setValidator(object : CalendarConstraints.DateValidator {
+                override fun describeContents(): Int {
+                    return 0
+                }
+
+                override fun writeToParcel(p0: Parcel, p1: Int) {
+
+                }
+
+                override fun isValid(date: Long): Boolean {
+                    return date <= calendar.timeInMillis
+                }
+            })
+            .build()
         val dateRangePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTheme(R.style.ThemeMaterialCalender)
                 .setTitleText("Select Date Of Birth")
-                .setCalendarConstraints(constraintsBuilder.build())
+                .setCalendarConstraints(constraintsBuilder)
                 .build()
         dateRangePicker.show(requireActivity().supportFragmentManager, "datePicker")
 
